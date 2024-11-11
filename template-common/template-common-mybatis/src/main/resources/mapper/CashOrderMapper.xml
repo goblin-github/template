@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.common.mybatis.mapper.CashOrderMapper">
+
+    <select id="statPlayerCashAll" resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(cash_value), 0)
+        FROM bus_cash_order
+        WHERE player_id = #{playerId}
+          AND status in (3, 4)
+    </select>
+</mapper>

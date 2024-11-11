@@ -1,0 +1,16 @@
+spring:
+  data:
+    redis:
+      client-name: ${spring.application.name}
+      host: 124.222.200.35
+      port: 6379
+      database: 2
+      password: haitao123
+      timeout: 10s
+      ssl:
+        enabled: false
+  datasource:
+    url: jdbc:mysql://124.222.200.35:3306/game_lobby
+    username: root
+    password: haitao123
+    driver-class-name: com.mysql.cj.jdbc.Driver
