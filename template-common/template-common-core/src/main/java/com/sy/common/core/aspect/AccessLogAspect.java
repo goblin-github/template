@@ -8,10 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.MDC;
@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * @author Monster
@@ -37,56 +36,21 @@ public class AccessLogAspect {
     public void access() {
     }
 
-//    @Before("access()")
-//    public void doBefore(JoinPoint joinPoint) {
-//        Object attributes = RequestContextHolder.getRequestAttributes();
-//        if (!(attributes instanceof ServletRequestAttributes servletAttributes)) {
-//            return;
-//        }
-//        String uuid = UUID.randomUUID().toString();
-//        MDC.put(CommonConstant.REQUEST_ID, uuid);
-//
-//        HttpServletRequest request = servletAttributes.getRequest();
-//        HttpServletResponse response = servletAttributes.getResponse();
-//        if (Objects.nonNull(response)) {
-//            response.setHeader(CommonConstant.REQUEST_ID, uuid);
-//        }
-//        log.info("ACCESS REQUEST - URI: {}, METHOD: {}, PARAMETERS: {}", request.getRequestURI(), request.getMethod(), getMethodParams(joinPoint));
-//    }
-
-    @Around("access()")
-    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        // 获取请求和响应对象
+    @Before("access()")
+    public void doBefore(JoinPoint joinPoint) {
         Object attributes = RequestContextHolder.getRequestAttributes();
         if (!(attributes instanceof ServletRequestAttributes servletAttributes)) {
-            return joinPoint.proceed();
+            return;
         }
-
-        // 前置逻辑：生成并设置 requestId
-        String uuid = UUID.randomUUID().toString();
-        MDC.put(CommonConstant.REQUEST_ID, uuid);
-
+        String uuid = MDC.get(CommonConstant.REQUEST_ID);
         HttpServletRequest request = servletAttributes.getRequest();
         HttpServletResponse response = servletAttributes.getResponse();
-        if (Objects.nonNull(response)) {
+        if (Objects.nonNull(response) && StringUtils.isNotBlank(uuid)) {
             response.setHeader(CommonConstant.REQUEST_ID, uuid);
         }
-        // 记录请求信息
         log.info("ACCESS REQUEST - URI: {}, METHOD: {}, PARAMETERS: {}", request.getRequestURI(), request.getMethod(), getMethodParams(joinPoint));
-        try {
-            // 执行实际的方法调用
-            return joinPoint.proceed();
-        } finally {
-            // 后置逻辑：清理 MDC 中的 requestId
-            MDC.remove(CommonConstant.REQUEST_ID);
-        }
     }
 
-
-//    @After(value = "access()")
-//    public void after() {
-//        MDC.remove(CommonConstant.REQUEST_ID);
-//    }
 
     /**
      * 获取请求参数
