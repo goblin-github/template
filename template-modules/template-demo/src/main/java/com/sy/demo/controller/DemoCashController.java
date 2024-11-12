@@ -3,6 +3,7 @@ package com.sy.demo.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.sy.common.core.anno.Debounce;
 import com.sy.common.core.anno.DebounceParam;
+import com.sy.common.core.anno.RateLimit;
 import com.sy.common.core.base.Result;
 import com.sy.demo.pojo.CashOrderDTO;
 import com.sy.demo.pojo.QueryCashOrderDTO;
@@ -23,6 +24,7 @@ import java.math.BigDecimal;
 @Tag(name = "提现订单相关接口")
 @Slf4j
 public class DemoCashController {
+
     @Resource
     private IBusCashOrderService busCashOrderService;
 
@@ -33,12 +35,8 @@ public class DemoCashController {
 
     @GetMapping("player/total")
     @Debounce(expire = 10)
+    @RateLimit(times = 30, maxCount = 2)
     public Result<BigDecimal> getPlayerCashTotal(@RequestParam @DebounceParam long playerId) {
-        try {
-            Thread.sleep(19000);
-        } catch (Exception e) {
-            log.error("123");
-        }
         BigDecimal playerCashTotal = busCashOrderService.getPlayerCashTotal(playerId);
         log.error("12344");
         return Result.success(playerCashTotal);

@@ -31,7 +31,7 @@ public class SignatureAspect {
     @Value("${security.key}")
     private String securityKey;
 
-    @Pointcut("@within(com.sy.common.core.anno.Signature) || @annotation(com.sy.common.core.anno.Signature)")
+    @Pointcut("execution(public * com.sy.*..controller..*.*(..)) && @annotation(com.sy.common.core.anno.Signature)")
     public void pointSignature() {
     }
 

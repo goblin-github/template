@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 接口防抖注解
+ * 时间窗口限流注解
  *
  * @author Monster
  * @version v1.0
@@ -13,24 +13,19 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Documented
 @Inherited
-public @interface Debounce {
+public @interface RateLimit {
     /**
-     * 锁的前缀
+     * 限制时间窗口间隔长度
      */
-    String prefix() default "";
+    int times() default 2;
 
     /**
-     * 过期时间
-     */
-    int expire() default 2;
-
-    /**
-     * 过期单位
+     * 时间单位
      */
     TimeUnit timeUnit() default TimeUnit.SECONDS;
 
     /**
-     * key的分隔符
+     * 上述时间窗口内允许的最大请求数量
      */
-    String delimiter() default ":";
+    int maxCount() default 5;
 }

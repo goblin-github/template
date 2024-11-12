@@ -13,6 +13,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.RLock;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
@@ -31,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 @Aspect
 @Component
 @Slf4j
+@Order(3)
 public class DebounceAspect {
     @Pointcut("execution(public * com.sy.*..controller..*.*(..)) && @annotation(com.sy.common.core.anno.Debounce)")
     public void pointCut() {
