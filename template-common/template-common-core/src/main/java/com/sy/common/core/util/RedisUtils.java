@@ -4,6 +4,7 @@ import org.redisson.api.*;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,7 +13,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class RedisUtils {
 
-    private static final String RATE_LIMITER_KEY = "rate:limiter:";
     public static final RedissonClient REDISSON_CLIENT;
 
     public static final StringRedisTemplate REDIS_TEMPLATE;
@@ -42,7 +42,9 @@ public class RedisUtils {
         RBatch batch = REDISSON_CLIENT.createBatch();
         RBucketAsync<T> bucket = batch.getBucket(key);
         bucket.setAsync(value);
-        bucket.expireAsync(duration);
+        if (Objects.nonNull(duration)) {
+            bucket.expireAsync(duration);
+        }
         batch.execute();
     }
 
@@ -81,24 +83,21 @@ public class RedisUtils {
     /**
      * 将值放入缓存并设置时间
      *
-     * @param key   指定key
-     * @param value 值
-     * @param time  时间(秒) -1为无期限
+     * @param key      指定key
+     * @param value    值
+     * @param time     时间(秒) -1为无期限
+     * @param timeUnit 时间单位
      */
-    public static void setCacheString(String key, String value, long time) {
-        if (time > 0) {
-            REDIS_TEMPLATE.opsForValue().set(key, value, time, TimeUnit.SECONDS);
-        } else {
-            REDIS_TEMPLATE.opsForValue().set(key, value);
-        }
+    public static void setCacheString(String key, String value, long time, TimeUnit timeUnit) {
+        REDIS_TEMPLATE.opsForValue().set(key, value, time, timeUnit);
     }
 
     public static Long getExpire(String key) {
         return REDIS_TEMPLATE.getExpire(key);
     }
 
-    public static void setExpire(String key, long time) {
-        REDIS_TEMPLATE.expire(key, time, TimeUnit.SECONDS);
+    public static void setExpire(String key, long time, TimeUnit timeUnit) {
+        REDIS_TEMPLATE.expire(key, time, timeUnit);
     }
 
     public static void deleteCacheString(String key) {
