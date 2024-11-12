@@ -171,15 +171,9 @@
         <includeCallerData>true</includeCallerData>
         <neverBlock>true</neverBlock>
     </appender>
-    <log name="access.log" level="INFO" additivity="false">
+    <logger name="access.log" level="INFO" additivity="false">
         <appender-ref ref="ACCESS_LOG_ASYNC"/>
-    </log>
-
-    <!--    <springProfile name="dev">-->
-    <!--        <root level="INFO">-->
-    <!--            <appender-ref ref="CONSOLE"/>-->
-    <!--        </root>-->
-    <!--    </springProfile>-->
+    </logger>
 
     <springProfile name="test">
         <root level="INFO">

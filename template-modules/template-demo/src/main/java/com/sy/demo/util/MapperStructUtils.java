@@ -13,7 +13,6 @@ import org.mapstruct.factory.Mappers;
  * @version v1.0
  */
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-
 public interface MapperStructUtils {
 
     MapperStructUtils INSTANCE = Mappers.getMapper(MapperStructUtils.class);
