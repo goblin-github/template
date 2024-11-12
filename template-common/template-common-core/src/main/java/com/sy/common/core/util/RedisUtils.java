@@ -13,18 +13,17 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtils {
 
     private static final String RATE_LIMITER_KEY = "rate:limiter:";
+    public static final RedissonClient REDISSON_CLIENT;
 
-    private static final RedissonClient CLIENT;
-
-    private static final StringRedisTemplate REDIS_TEMPLATE;
+    public static final StringRedisTemplate REDIS_TEMPLATE;
 
     static {
-        CLIENT = SpringUtils.getContext().getBean(RedissonClient.class);
+        REDISSON_CLIENT = SpringUtils.getContext().getBean(RedissonClient.class);
         REDIS_TEMPLATE = SpringUtils.getContext().getBean(StringRedisTemplate.class);
     }
 
     public static <T> RScoredSortedSet<T> getScoredSortedSet(String key) {
-        return CLIENT.getScoredSortedSet(key);
+        return REDISSON_CLIENT.getScoredSortedSet(key);
     }
 
     public static <T> void setScoredSortedSet(String key, T value, double score) {
@@ -40,7 +39,7 @@ public class RedisUtils {
      * @param duration 时间
      */
     public static <T> void setCacheObject(final String key, final T value, final Duration duration) {
-        RBatch batch = CLIENT.createBatch();
+        RBatch batch = REDISSON_CLIENT.createBatch();
         RBucketAsync<T> bucket = batch.getBucket(key);
         bucket.setAsync(value);
         bucket.expireAsync(duration);
@@ -54,7 +53,7 @@ public class RedisUtils {
      * @return 缓存键值对应的数据
      */
     public static <T> T getCacheObject(final String key) {
-        RBucket<T> rBucket = CLIENT.getBucket(key);
+        RBucket<T> rBucket = REDISSON_CLIENT.getBucket(key);
         return rBucket.get();
     }
 
@@ -129,7 +128,7 @@ public class RedisUtils {
      */
     private static RRateLimiter getRateLimiter(String bizKey, long count, long time) {
         String limiterKey = getLimiterKey(bizKey);
-        RRateLimiter rateLimiter = CLIENT.getRateLimiter(limiterKey);
+        RRateLimiter rateLimiter = REDISSON_CLIENT.getRateLimiter(limiterKey);
         if (!rateLimiter.isExists()) {
             rateLimiter.trySetRate(RateType.OVERALL, count, time, RateIntervalUnit.SECONDS);
         }

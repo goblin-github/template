@@ -1,9 +1,9 @@
 package com.sy.demo.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.sy.common.core.base.BaseRCodeEnum;
+import com.sy.common.core.anno.Debounce;
+import com.sy.common.core.anno.DebounceParam;
 import com.sy.common.core.base.Result;
-import com.sy.common.core.exception.BusinessException;
 import com.sy.demo.pojo.CashOrderDTO;
 import com.sy.demo.pojo.QueryCashOrderDTO;
 import com.sy.demo.service.IBusCashOrderService;
@@ -32,9 +32,16 @@ public class DemoCashController {
     }
 
     @GetMapping("player/total")
-    public Result<BigDecimal> getPlayerCashTotal(@RequestParam long playerId) {
+    @Debounce(expire = 10)
+    public Result<BigDecimal> getPlayerCashTotal(@RequestParam @DebounceParam long playerId) {
+        try {
+            Thread.sleep(19000);
+        } catch (Exception e) {
+            log.error("123");
+        }
         BigDecimal playerCashTotal = busCashOrderService.getPlayerCashTotal(playerId);
         log.error("12344");
-        throw new BusinessException(BaseRCodeEnum.PARAM_ERROR);
+        return Result.success(playerCashTotal);
+//        throw new BusinessException(BaseRCodeEnum.PARAM_ERROR);
     }
 }
