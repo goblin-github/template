@@ -26,10 +26,10 @@
             <artifactId>mybatis-plus-jsqlparser</artifactId>
         </dependency>
         <!--集成多数据源-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.baomidou</groupId>-->
-        <!--            <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+        </dependency>
         <!-- 集成sql监控 -->
         <dependency>
             <groupId>com.github.gavlyukovskiy</groupId>

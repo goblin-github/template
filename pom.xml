@@ -19,14 +19,14 @@
         <project.final.name>template</project.final.name>
         <!--组件版本号-->
         <java.version>17</java.version>
-        <redisson.version>3.38.1</redisson.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
-        <guava.version>33.3.0-jre</guava.version>
+        <redisson.version>3.40.2</redisson.version>
+        <commons-collections4.version>4.5.0-M2</commons-collections4.version>
+        <guava.version>33.4.0-jre</guava.version>
         <mybatis-plus-spring-boot3-starter.version>3.5.9</mybatis-plus-spring-boot3-starter.version>
-        <mapstruct.version>1.6.2</mapstruct.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
-        <p6spy-spring-boot-starter.version>1.9.2</p6spy-spring-boot-starter.version>
-        <springdoc-openapi-starter-webmvc-ui.version>2.6.0</springdoc-openapi-starter-webmvc-ui.version>
+        <p6spy-spring-boot-starter.version>1.10.0</p6spy-spring-boot-starter.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.7.0</springdoc-openapi-starter-webmvc-ui.version>
         <dynamic-datasource-spring-boot3-starter.version>4.3.1</dynamic-datasource-spring-boot3-starter.version>
     </properties>
 
