@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.5</version>
+        <version>3.4.0</version>
         <relativePath/>
     </parent>
 
@@ -31,7 +31,7 @@
     </properties>
 
     <modules>
-        <module>template-admin</module>
+        <module>template-boot</module>
         <module>template-common</module>
         <module>template-modules</module>
     </modules>
@@ -41,12 +41,12 @@
         <dependencies>
             <dependency>
                 <groupId>com.sy</groupId>
-                <artifactId>template-common-core</artifactId>
+                <artifactId>template-core</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.sy</groupId>
-                <artifactId>template-common-mybatis</artifactId>
+                <artifactId>template-infrastructure</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>

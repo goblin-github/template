@@ -7,7 +7,7 @@
         <artifactId>template</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>template-admin</artifactId>
+    <artifactId>template-boot</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.sy</groupId>

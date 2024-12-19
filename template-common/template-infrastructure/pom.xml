@@ -8,7 +8,7 @@
         <artifactId>template-common</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>template-common-mybatis</artifactId>
+    <artifactId>template-infrastructure</artifactId>
     <dependencies>
         <!-- mysql驱动 -->
         <dependency>

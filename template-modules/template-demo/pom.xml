@@ -12,11 +12,11 @@
     <dependencies>
         <dependency>
             <groupId>com.sy</groupId>
-            <artifactId>template-common-core</artifactId>
+            <artifactId>template-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sy</groupId>
-            <artifactId>template-common-mybatis</artifactId>
+            <artifactId>template-infrastructure</artifactId>
         </dependency>
     </dependencies>
 </project>

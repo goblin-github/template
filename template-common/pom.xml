@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>template-common-core</module>
-        <module>template-common-mybatis</module>
+        <module>template-core</module>
+        <module>template-infrastructure</module>
     </modules>
 </project>
