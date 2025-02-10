@@ -11,11 +11,11 @@ public enum BaseStatusEnum {
     /**
      * 启用
      */
-    ENABLE(0),
+    ENABLE(1),
     /**
      * 禁用
      */
-    DISABLE(1),
+    DISABLE(0),
     ;
     private final Integer code;
 
