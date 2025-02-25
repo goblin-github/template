@@ -8,10 +8,6 @@ package com.sy.common.core.constant;
  */
 public class CommonConstant {
     /**
-     * 日志请求ID
-     */
-    public static final String REQUEST_ID = "X-Request-Id";
-    /**
      * 验签请求头
      */
     public static final String SIGN = "sign";
