@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.UUID;
 
+import static com.sy.common.core.constant.CommonConstant.REQUEST_ID;
+
 /**
  * @author Monster
  * @version v1.0
@@ -16,7 +18,6 @@ import java.util.UUID;
 @Component
 public class RequestIdFilter implements Filter {
 
-    private static final String REQUEST_ID = "X-Request-Id";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

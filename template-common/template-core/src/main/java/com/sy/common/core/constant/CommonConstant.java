@@ -7,6 +7,8 @@ package com.sy.common.core.constant;
  * @version v1.0
  */
 public class CommonConstant {
+
+    public static final String REQUEST_ID = "X-Request-Id";
     /**
      * 验签请求头
      */

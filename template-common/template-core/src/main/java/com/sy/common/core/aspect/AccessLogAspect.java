@@ -2,7 +2,6 @@ package com.sy.common.core.aspect;
 
 
 import com.google.common.collect.Maps;
-import com.sy.common.core.constant.CommonConstant;
 import com.sy.common.core.util.JacksonUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 import java.util.Objects;
+
+import static com.sy.common.core.constant.CommonConstant.REQUEST_ID;
 
 /**
  * 请求日志切面处理器
@@ -44,11 +45,11 @@ public class AccessLogAspect {
         if (!(attributes instanceof ServletRequestAttributes servletAttributes)) {
             return;
         }
-        String uuid = MDC.get(CommonConstant.REQUEST_ID);
+        String uuid = MDC.get(REQUEST_ID);
         HttpServletRequest request = servletAttributes.getRequest();
         HttpServletResponse response = servletAttributes.getResponse();
         if (Objects.nonNull(response) && StringUtils.isNotBlank(uuid)) {
-            response.setHeader(CommonConstant.REQUEST_ID, uuid);
+            response.setHeader(REQUEST_ID, uuid);
         }
         log.info("ACCESS REQUEST - URI: {}, METHOD: {}, PARAMETERS: {}", request.getRequestURI(), request.getMethod(), getMethodParams(joinPoint));
     }
